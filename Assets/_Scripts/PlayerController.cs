@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isEquipping;
     public bool isEquipped; //Equipped as in its in the hand
+    public bool isBlocking;
 
     void Start()
     {
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Equip();
+        Block();
     }
 
     private void Equip()
@@ -56,5 +59,20 @@ public class PlayerController : MonoBehaviour
     public void Equipped()
     {
         isEquipping = false;
+    }
+
+    private void Block()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1) && playerAnim.GetBool("Grounded"))
+        {
+            playerAnim.SetBool("Block", true);
+            isBlocking = true;
+        }
+
+        else
+        {
+            playerAnim.SetBool("Block", false);
+            isBlocking = false;
+        }
     }
 }
