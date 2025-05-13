@@ -1,44 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //Third Person Controller References
     [SerializeField]
     private Animator playerAnim;
 
-
-    //Equip-Unequip parameters
     [SerializeField]
     private GameObject sword;
+
     [SerializeField]
     private GameObject swordOnShoulder;
+
     public bool isEquipping;
     public bool isEquipped; //Equipped as in its in the hand
-
-
-    //Blocking Parameters
     public bool isBlocking;
-
-    //Kick Parameters
     public bool isKicking;
 
-    //Attack Parameters
-    public bool isAttacking;
-    private float timeSinceAttack;
-    public int currentAttack = 0;
-
-
-
-
-    private void Update()
+    void Start()
     {
-        timeSinceAttack += Time.deltaTime;
 
-        Attack();
+    }
 
-
+    // Update is called once per frame
+    void Update()
+    {
         Equip();
         Block();
         Kick();
@@ -53,7 +41,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ActiveWeapon()
+    public void ActiveWeapon() //This methods hides and shows (and vice verse) the sword as the "Equip" animations plays
     {
         if (!isEquipped)
         {
@@ -61,6 +49,7 @@ public class PlayerController : MonoBehaviour
             swordOnShoulder.SetActive(false);
             isEquipped = !isEquipped;
         }
+
         else //isEquipped = true
         {
             sword.SetActive(false);
@@ -81,6 +70,7 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Block", true);
             isBlocking = true;
         }
+
         else
         {
             playerAnim.SetBool("Block", false);
@@ -88,54 +78,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Kick()
+    private void Kick()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && playerAnim.GetBool("Grounded"))
+        if (Input.GetKey(KeyCode.E))
         {
             playerAnim.SetBool("Kick", true);
             isKicking = true;
         }
+
         else
         {
             playerAnim.SetBool("Kick", false);
             isKicking = false;
         }
-    }
-
-    private void Attack()
-    {
-
-        if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
-        {
-            if (!isEquipped)
-                return;
-
-            currentAttack++;
-            isAttacking = true;
-
-            if (currentAttack > 3)
-                currentAttack = 1;
-
-            //Reset
-            if (timeSinceAttack > 1.0f)
-                currentAttack = 1;
-
-            //Call Attack Triggers
-            playerAnim.SetTrigger("Attack" + currentAttack);
-
-            //Reset Timer
-            timeSinceAttack = 0;
-        }
-
-
-
-
-
-    }
-
-    //This will be used at animation event
-    public void ResetAttack()
-    {
-        isAttacking = false;
     }
 }
