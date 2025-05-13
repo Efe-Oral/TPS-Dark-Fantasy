@@ -1,14 +1,25 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 2fc7e1f8c74e77f4b8a734ed8619f1e1
+=======
+guid: a24050d795c14314596f793f160ad093
+>>>>>>> Animation-Adding-and-Testing
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
+<<<<<<< HEAD
     materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
+=======
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+>>>>>>> Animation-Adding-and-Testing
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

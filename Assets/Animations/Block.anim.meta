@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e1c9d8d6a3607cb43a8b82bfcd595941
+=======
+guid: d06e4b29af8f043469bdfd36379dc2f3
+>>>>>>> Animation-Adding-and-Testing
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
