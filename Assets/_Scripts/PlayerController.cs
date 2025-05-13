@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool isEquipping;
     public bool isEquipped; //Equipped as in its in the hand
     public bool isBlocking;
+    public bool isKicking;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         Equip();
         Block();
+        Kick();
     }
 
     private void Equip()
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ActiveWeapon()
+    public void ActiveWeapon() //This methods hides and shows (and vice verse) the sword as the "Equip" animations plays
     {
         if (!isEquipped)
         {
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void Block()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && playerAnim.GetBool("Grounded"))
+        if (Input.GetKey(KeyCode.Mouse1) && playerAnim.GetBool("Grounded"))
         {
             playerAnim.SetBool("Block", true);
             isBlocking = true;
@@ -73,6 +75,21 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetBool("Block", false);
             isBlocking = false;
+        }
+    }
+
+    private void Kick()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            playerAnim.SetBool("Kick", true);
+            isKicking = true;
+        }
+
+        else
+        {
+            playerAnim.SetBool("Kick", false);
+            isKicking = false;
         }
     }
 }

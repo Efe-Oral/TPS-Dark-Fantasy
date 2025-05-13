@@ -215,7 +215,7 @@ namespace StarterAssets
 
         private void Move()
         {
-            if (playerController.isEquipping || playerController.isBlocking)
+            if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking)
             {
                 return;
             }
