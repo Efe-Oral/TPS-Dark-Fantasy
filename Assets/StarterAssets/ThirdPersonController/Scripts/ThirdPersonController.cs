@@ -213,13 +213,15 @@ namespace StarterAssets
                 _cinemachineTargetYaw, 0.0f);
         }
 
+        ///////////////////////////////////////////
         private void Move()
         {
             if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking)
             {
                 return;
             }
-
+            ///////////////////////////////////////////
+            /// 
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 

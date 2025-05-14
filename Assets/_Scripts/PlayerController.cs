@@ -78,18 +78,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Kick()
+    public void Kick()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) && playerAnim.GetBool("Grounded") && isKicking == false)
         {
-            playerAnim.SetBool("Kick", true);
-            isKicking = true;
+            StartCoroutine(WaitForKick());
         }
+    }
 
-        else
-        {
-            playerAnim.SetBool("Kick", false);
-            isKicking = false;
-        }
+    private IEnumerator WaitForKick()
+    {
+        playerAnim.SetBool("Kick", true);
+        isKicking = true;
+
+        yield return new WaitForSeconds(0.7f);
+
+        playerAnim.SetBool("Kick", false);
+        isKicking = false;
     }
 }
