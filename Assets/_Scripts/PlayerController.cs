@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public bool isEquipped; //Equipped as in its in the hand
     public bool isBlocking;
     public bool isKicking;
+    public bool isAttacking;
+    public float timeSinceAttack;
+    public int currentAttack = 0;
 
     void Start()
     {
@@ -27,6 +30,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeSinceAttack = timeSinceAttack + Time.deltaTime;
+
+        Attack();
         Equip();
         Block();
         Kick();
@@ -95,5 +101,33 @@ public class PlayerController : MonoBehaviour
 
         playerAnim.SetBool("Kick", false);
         isKicking = false;
+    }
+
+    private void Attack()
+    {
+
+        if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
+        {
+            if (!isEquipped)
+                return;
+
+            currentAttack = currentAttack + 1;
+            isAttacking = true;
+
+            if (currentAttack > 3)
+                currentAttack = 1;
+
+            if (timeSinceAttack > 1.0f)
+                currentAttack = 1;
+
+            playerAnim.SetTrigger("Attack" + currentAttack);
+
+            timeSinceAttack = 0;
+        }
+    }
+
+    public void ResetAttack()
+    {
+        isAttacking = false;
     }
 }
