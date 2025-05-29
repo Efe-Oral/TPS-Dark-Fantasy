@@ -1,0 +1,8 @@
+# TODO List
+
+- [ ] Change default walk animation
+- [ ] Add enemies
+
+
+
+
