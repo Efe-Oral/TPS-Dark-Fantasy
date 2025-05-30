@@ -1,8 +1,8 @@
 # TODO List
 
 - [ ] Change default walk animation
-- [ ] Add enemies
 - [ ] Change default run animation (https://www.mixamo.com/#/?genres=&page=1&query=sword+run&type=Motion%2CMotionPack)
+- [ ] Add enemies
 
 
 
