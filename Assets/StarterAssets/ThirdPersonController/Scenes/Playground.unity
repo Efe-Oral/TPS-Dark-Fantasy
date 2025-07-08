@@ -805,6 +805,10 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: 13ae0923359a76b4f9d3a1a0ce83e13b, type: 3}
+    - target: {fileID: 6982812146204527121, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8187455079231382173, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -864,6 +868,12 @@ MonoBehaviour:
   swordOnShoulder: {fileID: 5059565285123051597}
   isEquipping: 0
   isEquipped: 0
+  isBlocking: 0
+  isKicking: 0
+  isAttacking: 0
+  timeSinceAttack: 0
+  cooldownTime: 0.8
+  currentAttack: 0
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0

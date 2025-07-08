@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,22 +18,50 @@ public class PlayerController : MonoBehaviour
     public bool isKicking;
     public bool isAttacking;
     public float timeSinceAttack;
+    public float cooldownTime = 2f;
+    private float nextFireTime = 0f;
+    public static int numberOfClicks = 0;
+    private float lastClickTime = 0f;
+    private float maxComboDelay = 0.9f;
+
     public int currentAttack = 0;
 
     void Start()
     {
-
+        playerAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         timeSinceAttack = timeSinceAttack + Time.deltaTime;
-
         Attack();
         Equip();
         Block();
         Kick();
+
+        if (playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("combo2-1"))
+        {
+            playerAnim.SetBool("combo2-1", false);
+        }
+        if (playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("combo2-2"))
+        {
+            playerAnim.SetBool("combo2-2", false);
+            numberOfClicks = 0;
+        }
+
+        if (Time.time - lastClickTime > maxComboDelay)
+        {
+            numberOfClicks = 0;
+        }
+
+        if (Time.time > nextFireTime)
+        {
+            if (Input.GetKey(KeyCode.L))
+            {
+                AttackCombo();
+            }
+        }
     }
 
     private void Equip()
@@ -129,5 +155,23 @@ public class PlayerController : MonoBehaviour
     public void ResetAttack()
     {
         isAttacking = false;
+    }
+
+    private void AttackCombo()
+    {
+        lastClickTime = Time.time;
+        numberOfClicks = numberOfClicks + 1;
+
+        if (numberOfClicks == 1)
+        {
+            playerAnim.SetBool("combo2-1", true);
+        }
+        numberOfClicks = Mathf.Clamp(numberOfClicks, 0, 2);
+
+        if (numberOfClicks >= 2 && playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("combo2-1"))
+        {
+            playerAnim.SetBool("combo2-1", false);
+            playerAnim.SetBool("combo2-2", true);
+        }
     }
 }
