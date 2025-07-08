@@ -1,9 +1,12 @@
 # TODO List
 
+- [X] Add a new combo
+
+
+
 - [ ] Change default walk animation
 - [ ] Change default run animation (https://www.mixamo.com/#/?genres=&page=1&query=sword+run&type=Motion%2CMotionPack)
 - [ ] Add enemies
-- [ ] 
 
 
 

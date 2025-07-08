@@ -133,17 +133,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void AttackCombo()
+    public void AttackCombo()
     {
         timeSinceAttack = timeSinceAttack + Time.deltaTime;
         if (playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("combo2-1"))
         {
             playerAnim.SetBool("combo2-1", false);
+            ResetAttack();
         }
         if (playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("combo2-2"))
         {
             playerAnim.SetBool("combo2-2", false);
             numberOfClicks = 0;
+            ResetAttack();
         }
 
         if (Time.time - lastClickTime > maxComboDelay)
@@ -151,12 +153,12 @@ public class PlayerController : MonoBehaviour
             numberOfClicks = 0;
         }
 
-        if (Input.GetKey(KeyCode.L))
+        if (Input.GetKey(KeyCode.L) && playerAnim.GetBool("Grounded") && isEquipped)
         {
-
 
             lastClickTime = Time.time;
             numberOfClicks = numberOfClicks + 1;
+            isAttacking = true;
 
             if (numberOfClicks == 1)
             {
